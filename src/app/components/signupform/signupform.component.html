@@ -1,37 +1,55 @@
-<form>
+<form class="formulaire" [formGroup]="signupForm" (ngSubmit)="onFormSubmit()">
   <h1> Votre compte</h1>
   <div>
-      <label for="name"> Nom :</label>
-      <input type="text" id="name" name="user_name">
+
+    <label for="name"> Nom :</label>
+    <input type="text" id="name" name="user_name" formControlName="nom">
+  </div>
+  <div class="alert alert-warning" *ngIf="nom.invalid && nom.touched">
+    Votre nom ne peut pas etre vide!
   </div>
 
   <div>
-      <label for="name">Prenom :</label>
-      <input type="text" id="name" name="user_name">
+    <label for="name">Prenom :</label>
+    <input type="text" id="prenom" name="user_name" formControlName="prenom">
   </div>
-<div>
-      <label for="msg">E-mail  :</label>
-      <textarea id="msg" name="user_message"></textarea>
+
+  <div>
+    <label for="email">E-mail  :</label>
+    <textarea id="email" name="user_message" formControlName="email"></textarea>
+
+    <div *ngIf="email.invalid && email.touched" class="alert alert-warning">
+      <div *ngIf="email.errors?.required">
+        l'adresse saisie ne peut pas etre vide
+      </div>
+      <div *ngIf="email.errors?.email">
+        l'adresse saisie ne semble pas etre une adresse valide!
+      </div>
+    </div>
   </div>
- 
-    <div>
-      <label for="civilite">civilité  :</label>
-    <select id="civilite">
-      <option 
-      *ngFor="let genre of civilite"
-      value="{{genre}}">
-      {{genre}}
+
+  <div>
+    <label for="civilite">civilité  :</label>
+    <select id="civilite" formControlName="civilite">
+      <option *ngFor="let genre of civilite" value="{{genre.id}}">
+        {{genre.libelle}}
       </option>
     </select>
-</div>
+  </div>
 
-<div>
-  <label for="password">Mot de passe :</label>
-  <input type="text" id="password" name="user_name">
-</div>
+  <div>
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="user_name" formControlName="password">
+  </div>
 
-<input id="checkBox"  type="checkbox">j'accepte les CGU
-<div>
-<input type="submit" value="Creer mon compte">
-</div>
+  <input id="cgu" type="checkbox" formControlName="cgu">j'accepte les CGU
+
+  <div class="form-group">
+
+    <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid"> Creer</button>
+    <button type="reset" class="btn btn-default"> Annuler </button>
+  </div>
+  <p>
+    Valeur :{{signupForm.value | json}}:{{signupForm.status | json}}
+  </p>
 </form>
