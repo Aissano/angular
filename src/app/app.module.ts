@@ -6,7 +6,10 @@ import { SignupformComponent } from './components/signupform/signupform.componen
 import { HomeComponent } from './components/home/home.component';
 import{RouterModule} from '@angular/router';
 import {RoutingModule} from './modules/routing/routing.module';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -19,9 +22,14 @@ import {RoutingModule} from './modules/routing/routing.module';
     BrowserModule,
     ReactiveFormsModule,
     RouterModule,
+    CommonModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot(),
     RoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
+class MainModule {}
